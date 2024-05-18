@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { auth } from './store/auth.actions';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -43,6 +44,7 @@ export class AuthComponent {
   constructor(
     private readonly authService: AuthService,
     private toastr: ToastrService,
+    private router : Router,
     private readonly store: Store<{ auth: AuthLoggedInInterface }>
   ) {
     this.$auth = this.store.select('auth');
@@ -112,6 +114,7 @@ export class AuthComponent {
     }
 
     this.toastr.success('Login success');
-    this.store.dispatch(auth({ user: user }));
+    this.store.dispatch(auth({ user: user }))
+    this.router.navigate(['/'])
   }
 }
