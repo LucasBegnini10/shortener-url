@@ -17,6 +17,7 @@ import { Store } from '@ngrx/store';
 import { auth } from './store/auth.actions';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthState } from './store/auth.reducer';
 
 @Component({
   selector: 'app-auth',
@@ -39,13 +40,13 @@ export class AuthComponent {
     remember: new FormControl(false),
   });
 
-  $auth: Observable<AuthLoggedInInterface>;
+  $auth: Observable<AuthState>;
 
   constructor(
     private readonly authService: AuthService,
     private toastr: ToastrService,
     private router : Router,
-    private readonly store: Store<{ auth: AuthLoggedInInterface }>
+    private readonly store: Store<{ auth: AuthState }>
   ) {
     this.$auth = this.store.select('auth');
   }
