@@ -21,52 +21,74 @@
       }
     </div>
 
-    <div class="w-full grid grid-cols-7 items-center my-6 text-sm font-semibold">
+    <div
+      class="w-full grid grid-cols-7 items-center my-6 text-sm font-semibold"
+    >
       <hr class="col-span-3 w-full bg-zinc-300" />
       <span class="col-span-1 text-center text-zinc-300">OR</span>
       <hr class="col-span-3 w-full bg-zinc-300" />
     </div>
 
-    <div class="flex flex-col gap-1">
-      <label for="email">E-mail Address</label>
-      <input
-        tabindex="1"
-        id="email"
-        type="email"
-        class="bg-input rounded-lg p-2 font-light placeholder:text-sm"
-        placeholder="Enter your email..."
-      />
-    </div>
-
-    <div class="flex flex-col gap-1 mt-4">
-      <label for="password">Password</label>
-      <input
-        tabindex="2"
-        id="password"
-        type="password"
-        class="bg-input rounded-lg p-2 font-light placeholder:text-sm"
-        placeholder="Enter your email..."
-      />
-    </div>
-
-    <div class="flex row items-center my-6 justify-between font-light">
-      <div class="flex items-center">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="flex flex-col gap-1">
+        <label for="email">E-mail Address</label>
         <input
-          id="remember"
-          type="checkbox"
-          class="w-4 h-4 text-primary border border-border rounded cursor-pointer"
+          formControlName="email"
+          tabindex="1"
+          id="email"
+          type="email"
+          class="bg-input rounded-lg p-3 font-light placeholder:text-sm"
+          placeholder="Enter your email..."
         />
-        <label for="remember" class="ms-2 cursor-pointer">Remember me</label>
+        @if (getEmailIsEmpty()) {
+        <span class="text-xs mt-1 text-red-500">O e-mail é obrigatório</span>
+        } @else if (getEmailIsInvalid()) {
+        <span class="text-xs mt-1 text-red-500">Preencha um e-mail válido</span>
+        }
       </div>
-      <a href="#" class="underline cursor-pointer">Forgot password?</a>
-    </div>
 
-    <button class="w-full rounded-lg bg-primary p-2.5 hover:bg-primary/90 font-semibold">
-      Sign In
-    </button>
+      <div class="flex flex-col gap-1 mt-4">
+        <label for="password">Password</label>
+        <input
+          formControlName="pwd"
+          tabindex="2"
+          id="password"
+          type="password"
+          class="bg-input rounded-lg p-3 font-light placeholder:text-sm"
+          placeholder="Enter your password..."
+        />
+        @if (getPasswordIsEmpty()) {
+        <span class="text-xs mt-1 text-red-500">A senha é obrigatória</span>
+        } @else if (getPasswordMinLengthError()) {
+        <span class="text-xs mt-1 text-red-500"
+          >A senha deve ter no mínimo {{ MIN_LENGTH_PASSWORD }} caracteres</span
+        >
+        }
+      </div>
 
-    <div class="mt-4 text-center font-light">
-      Don't have an account yet? <strong class="text-primary cursor-pointer">Sign Up</strong>
+      <div class="flex row items-center my-6 justify-between font-light">
+        <div class="flex items-center">
+          <input
+            id="remember"
+            type="checkbox"
+            formControlName="remember"
+            class="w-4 h-4 text-primary border border-border rounded cursor-pointer"
+          />
+          <label for="remember" class="ms-2 cursor-pointer">Remember me</label>
+        </div>
+        <a href="#" class="underline cursor-pointer">Forgot password?</a>
+      </div>
+
+      <button
+        class="w-full rounded-lg bg-primary p-3 hover:bg-primary/90 font-semibold"
+      >
+        Sign In
+      </button>
+    </form>
+
+    <div class="mt-6 text-center font-light">
+      Don't have an account yet?
+      <strong class="text-primary cursor-pointer">Sign Up</strong>
     </div>
   </div>
 </main>
