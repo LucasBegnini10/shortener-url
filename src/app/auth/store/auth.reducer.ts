@@ -8,7 +8,7 @@ interface AuthState extends AuthLoggedInInterface {
 }
 
 export const initialState = {} as AuthState;
-const KEY_AUTH = 'auth';
+export const KEY_AUTH = 'auth';
 
 export const authReducer = createRehydrateReducer(
   KEY_AUTH,
