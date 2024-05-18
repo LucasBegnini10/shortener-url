@@ -1,14 +1,17 @@
-import { createReducer, on } from '@ngrx/store';
+import { on } from '@ngrx/store';
 import { logout, auth } from './auth.actions';
 import { AuthLoggedInInterface } from '../interface/auth.interface';
+import { createRehydrateReducer } from '../../utils/rehydrate-reducer';
 
 interface AuthState extends AuthLoggedInInterface {
   isLoggedIn: boolean;
 }
 
 export const initialState = {} as AuthState;
+const KEY_AUTH = 'auth';
 
-export const authReducer = createReducer(
+export const authReducer = createRehydrateReducer(
+  KEY_AUTH,
   initialState,
   on(auth, (_state, { user }) => {
     return {
