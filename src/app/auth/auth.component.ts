@@ -1,6 +1,14 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import {
+  FormGroup,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from './service/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AuthResponseInterface } from './interface/auth.interface';
 
 @Component({
   selector: 'app-auth',
@@ -9,33 +17,38 @@ import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angula
   templateUrl: './auth.component.html',
 })
 export class AuthComponent {
-  constructor() {}
+  constructor(
+    private readonly authService: AuthService,
+    private toastr: ToastrService
+  ) {}
+  MIN_LENGTH_PASSWORD = 6;
 
-  MIN_LENGTH_PASSWORD=6;
-
-  optionsAuth = [
-    { id: 'apple', name: 'Apple', image: 'assets/logos/apple.png' },
-    { id: 'google', name: 'Google', image: 'assets/logos/google.png' },
-    { id: 'github', name: 'Github', image: 'assets/logos/github.png' },
-  ];
+  isLoading = false;
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    pwd: new FormControl('', [Validators.required, Validators.minLength(this.MIN_LENGTH_PASSWORD)]),
-    remember: new FormControl(false)
+    email: new FormControl('lucasbegnini.dev@gmail.com', [
+      Validators.required,
+      Validators.email,
+    ]),
+    pwd: new FormControl('Lucas123', [
+      Validators.required,
+      Validators.minLength(this.MIN_LENGTH_PASSWORD),
+    ]),
+    remember: new FormControl(false),
   });
 
-  get email(){
-    return this.loginForm.get('email')
+  get email() {
+    return this.loginForm.get('email');
   }
 
-  get password(){
-    return this.loginForm.get('pwd')
+  get password() {
+    return this.loginForm.get('pwd');
   }
 
   getEmailIsEmpty() {
     return this.email?.hasError('required');
   }
+
   getEmailIsInvalid() {
     return this.email?.hasError('email');
   }
@@ -48,11 +61,47 @@ export class AuthComponent {
     return this.password?.hasError('minlength');
   }
 
-  onSubmit(){
-    if(this.loginForm.status === "INVALID") return;
+  onSubmit() {
+    const { email, pwd: password } = this.loginForm.value;
+    if (this.loginForm.status === 'INVALID' || !email || !password) return;
 
-    console.log(this.loginForm.value)
+    this.isLoading = true;
+    this.authService
+      .authService({ user: { email, password } })
 
+      .subscribe({
+        next: this.handleSuccessLogin.bind(this),
+        error: this.handleErrorLogin.bind(this),
+      });
+  }
 
+  handleErrorLogin(error: HttpErrorResponse) {
+    this.isLoading = false;
+
+    const defaultMessage = 'Error on login';
+
+    if (!error?.status || typeof error.status !== 'number') {
+      this.toastr.error(defaultMessage);
+      return;
+    }
+
+    const mappingMessageErrorByStatus: { [key: number]: string } = {
+      403: 'Invalid email or password',
+    };
+
+    const message = mappingMessageErrorByStatus[error.status] || defaultMessage;
+
+    this.toastr.error(message);
+  }
+
+  handleSuccessLogin(data: Object){
+    const user = data as AuthResponseInterface;
+    this.isLoading = false;
+
+    if(this.loginForm.value.remember){
+      localStorage.setItem('token', user.user.token);
+    }
+
+    this.toastr.success('Login success');
   }
 }

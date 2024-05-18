@@ -11,25 +11,8 @@
     <p class="text-center mt-2 text-sm text-muted-foreground">
       Please enter your details to sign in
     </p>
-    <div class="mt-8 grid grid-cols-3 gap-2">
-      @for (option of optionsAuth; track $index) {
-      <button
-        class="cursor-pointer flex border border-border rounded-lg justify-center p-2 bg-input hover:bg-input/90"
-      >
-        <img src="{{ option.image }}" alt="{{ option.name }}" class="h-6" />
-      </button>
-      }
-    </div>
 
-    <div
-      class="w-full grid grid-cols-7 items-center my-6 text-sm font-semibold"
-    >
-      <hr class="col-span-3 w-full bg-zinc-300" />
-      <span class="col-span-1 text-center text-zinc-300">OR</span>
-      <hr class="col-span-3 w-full bg-zinc-300" />
-    </div>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="mt-6">
       <div class="flex flex-col gap-1">
         <label for="email">E-mail Address</label>
         <input
@@ -81,8 +64,11 @@
 
       <button
         class="w-full rounded-lg bg-primary p-3 hover:bg-primary/90 font-semibold"
+        [class.bg-primary-foreground]="isLoading"
+        [class.hover:bg-primary-foreground]="isLoading"
+        [disabled]="isLoading"
       >
-        Sign In
+        {{ isLoading ? "Loading..." : "Sign In" }}
       </button>
     </form>
 
