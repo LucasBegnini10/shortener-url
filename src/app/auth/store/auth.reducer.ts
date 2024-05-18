@@ -3,7 +3,7 @@ import { logout, auth } from './auth.actions';
 import { AuthLoggedInInterface } from '../interface/auth.interface';
 import { createRehydrateReducer } from '../../utils/rehydrate-reducer';
 
-interface AuthState extends AuthLoggedInInterface {
+export interface AuthState extends AuthLoggedInInterface {
   isLoggedIn: boolean;
 }
 
