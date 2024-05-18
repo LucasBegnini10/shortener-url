@@ -1,0 +1,72 @@
+<main
+  class="min-h-screen w-screen bg-background flex items-center justify-center"
+>
+  <div
+    class="w-[80vw] max-w-[500px] border border-border bg-card text-card-foreground rounded-lg p-6"
+  >
+    <div class="w-full flex justify-center">
+      <img alt="logo" src="assets/logos/logo.png" class="h-28" />
+    </div>
+    <h1 class="text-center font-bold text-2xl mt-6">Welcome back</h1>
+    <p class="text-center mt-2 text-sm text-muted-foreground">
+      Please enter your details to sign in
+    </p>
+    <div class="mt-8 grid grid-cols-3 gap-2">
+      @for (option of optionsAuth; track $index) {
+      <button
+        class="cursor-pointer flex border border-border rounded-lg justify-center p-2 bg-input hover:bg-input/90"
+      >
+        <img src="{{ option.image }}" alt="{{ option.name }}" class="h-6" />
+      </button>
+      }
+    </div>
+
+    <div class="w-full grid grid-cols-7 items-center my-6 text-sm font-semibold">
+      <hr class="col-span-3 w-full bg-zinc-300" />
+      <span class="col-span-1 text-center text-zinc-300">OR</span>
+      <hr class="col-span-3 w-full bg-zinc-300" />
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label for="email">E-mail Address</label>
+      <input
+        tabindex="1"
+        id="email"
+        type="email"
+        class="bg-input rounded-lg p-2 font-light placeholder:text-sm"
+        placeholder="Enter your email..."
+      />
+    </div>
+
+    <div class="flex flex-col gap-1 mt-4">
+      <label for="password">Password</label>
+      <input
+        tabindex="2"
+        id="password"
+        type="password"
+        class="bg-input rounded-lg p-2 font-light placeholder:text-sm"
+        placeholder="Enter your email..."
+      />
+    </div>
+
+    <div class="flex row items-center my-6 justify-between font-light">
+      <div class="flex items-center">
+        <input
+          id="remember"
+          type="checkbox"
+          class="w-4 h-4 text-primary border border-border rounded cursor-pointer"
+        />
+        <label for="remember" class="ms-2 cursor-pointer">Remember me</label>
+      </div>
+      <a href="#" class="underline cursor-pointer">Forgot password?</a>
+    </div>
+
+    <button class="w-full rounded-lg bg-primary p-2.5 hover:bg-primary/90 font-semibold">
+      Sign In
+    </button>
+
+    <div class="mt-4 text-center font-light">
+      Don't have an account yet? <strong class="text-primary cursor-pointer">Sign Up</strong>
+    </div>
+  </div>
+</main>
