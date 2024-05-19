@@ -15,6 +15,7 @@ export class TabComponent {
   constructor(private readonly router: Router) {}
 
   handleClickTab() {
+    console.log('call', this.path);
     this.router.navigate([this.path]);
   }
 }

@@ -48,11 +48,10 @@ export class HeaderComponent {
 
   handleLogout(): void {
     this.store.dispatch(logout());
-    console.log('call');
     this.router.navigate(['/auth']);
   }
 
   tabIsActive(path: string): boolean {
-    return this.router.url.includes(path);
+    return this.router.url === path;
   }
 }
