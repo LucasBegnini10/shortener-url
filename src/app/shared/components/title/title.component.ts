@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-title',
@@ -6,9 +7,13 @@ import { Component, Input } from '@angular/core';
   imports: [],
   templateUrl: './title.component.html',
 })
-export class TitleComponent {
+export class TitleComponent implements AfterViewInit {
   @Input() title?: string;
   @Input() description?: string;
 
-  constructor() {}
+  constructor(private readonly titleService: Title) {}
+
+  ngAfterViewInit(): void {
+    this.titleService.setTitle(this.title || 'ShortnerUrl');
+  }
 }

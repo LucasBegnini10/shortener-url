@@ -1,1 +1,20 @@
 <app-title [title]="title" [description]="description"></app-title>
+
+<section class="w-full mt-6">
+  <div>
+    <form class="grid grid-cols-12 gap-4">
+      <input
+        type="text"
+        class="col-span-12 md:col-span-10 bg-input rounded-lg p-3 font-light placeholder:text-sm ring-1 ring-transparent focus:ring-primary focus:outline-none"
+        placeholder="Enter your link"
+        name="link"
+      />
+      <button
+        type="submit"
+        class="h-full bg-primary rounded-lg text-background p-3 font-semibold col-span-12 md:col-span-2 hover:bg-primary/90"
+      >
+        Shorten
+      </button>
+    </form>
+  </div>
+</section>
