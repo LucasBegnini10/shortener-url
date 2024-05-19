@@ -5,12 +5,16 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ShortenerService {
-  private url = 'https://cleanuri.com/api/v1/shorten';
+  private baseUrl = 'https://cleanuri.com/api/v1/shorten';
 
   constructor(private httpClient: HttpClient) {}
 
   shortenUrl(url: string) {
-    return this.httpClient.post(`${this.url}`, { url: this.formatUrl(url) });
+    return this.httpClient.post(`${this.baseUrl}`, `url=${this.formatUrl(url)}`, {
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      }
+    });
   }
 
   private formatUrl(url: string) {
