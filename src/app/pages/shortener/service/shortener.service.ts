@@ -10,6 +10,12 @@ export class ShortenerService {
   constructor(private httpClient: HttpClient) {}
 
   shortenUrl(url: string) {
-    return this.httpClient.post(`${this.url}`, {}, { params: { url } });
+    return this.httpClient.get(`${this.url}`, {
+      params: { url: this.formatUrl(url) },
+    });
+  }
+
+  private formatUrl(url: string) {
+    return encodeURIComponent(url);
   }
 }
