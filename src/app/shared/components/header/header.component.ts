@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthState } from '../auth/store/auth.reducer';
+import { AuthState } from '../../../auth/store/auth.reducer';
 import { Store, select } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -9,7 +9,7 @@ import {
   heroLink,
   heroListBullet,
 } from '@ng-icons/heroicons/outline';
-import { logout } from '../auth/store/auth.actions';
+import { logout } from '../../../auth/store/auth.actions';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { TabComponent } from '../tab/tab.component';
