@@ -1,0 +1,9 @@
+<button
+  (click)="handleClickTab()"
+  class="text-white rounded-full px-3 py-1 text-sm cursor-pointer hover:bg-zinc-500 flex items-center gap-2"
+  [class.bg-zinc-800]="active"
+  [class.font-medium]="active"
+>
+  <ng-content></ng-content>
+  {{ label }}
+</button>

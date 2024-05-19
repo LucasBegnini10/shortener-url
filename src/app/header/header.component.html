@@ -1,6 +1,6 @@
 <header class="w-full bg-background">
   <div class="container mx-auto flex justify-between items-center p-4">
-    <img alt="logo" src="assets/logos/logo.png" class="h-12" />
+    <img alt="logo" src="assets/logos/logo.png" class="h-20" />
     <div class="flex items-center gap-4 text-white text-right">
       <div class="flex-col">
         <p class="text-md font-medium">{{ username | async }}</p>
@@ -19,4 +19,17 @@
       </button>
     </div>
   </div>
+
+  <div class="container mx-auto mb-2 flex gap-4">
+    <app-tab
+      *ngFor="let tab of tabs"
+      [label]="tab.label"
+      [active]="tabIsActive(tab.path)"
+      [path]="tab.path"
+    >
+      <ng-icon class="text-white" [name]="tab.icon"></ng-icon>
+    </app-tab>
+  </div>
+
+  <div class="flex-grow border-t border-gray-700"></div>
 </header>
