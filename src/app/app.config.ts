@@ -6,7 +6,7 @@ import { HttpClientModule, provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideToastr } from 'ngx-toastr';
 import { StoreModule, provideStore } from '@ngrx/store';
-import { authReducer } from './auth/store/auth.reducer';
+import { authReducer } from './pages/auth/store/auth.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [

@@ -1,7 +1,7 @@
 import { on } from '@ngrx/store';
 import { logout, auth } from './auth.actions';
 import { AuthLoggedInInterface } from '../interface/auth.interface';
-import { createRehydrateReducer } from '../../utils/rehydrate-reducer';
+import { createRehydrateReducer } from '../../../utils/rehydrate-reducer';
 
 export interface AuthState extends AuthLoggedInInterface {
   isLoggedIn: boolean;
